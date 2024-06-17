@@ -1,7 +1,7 @@
 import express from "express";
 import misRutas from "./router";
 import { AppDataSource } from "./data-source";
-import morgan from 'morgan'
+import morgan from 'morgan';
 export class Server {
 
     private app: any;
@@ -13,6 +13,10 @@ export class Server {
         this.routes();
         this.connectionBd();
     }
+
+
+
+
 
     routes() {
         this.app.use(misRutas);

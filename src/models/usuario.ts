@@ -8,8 +8,4 @@ export class UsuariosEntity extends BaseEntity {
 
     @Column({ type: 'varchar', length: 50 })
     nombres: string
-
-
-
-
 }

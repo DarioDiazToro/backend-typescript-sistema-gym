@@ -1,6 +1,7 @@
 
 import "reflect-metadata"
 import { DataSource } from "typeorm";
+import { GymEntity } from "./models/gym";
 
 export const AppDataSource = new DataSource({
     type: "mysql",
@@ -15,3 +16,4 @@ export const AppDataSource = new DataSource({
     subscribers: [],
     migrations: [],
 })
+
