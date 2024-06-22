@@ -19,7 +19,7 @@ export class ClienteEntity extends BaseEntity {
     @Column({ type: 'varchar', })
     telefono: string
 
-    @Column({ type: 'varchar', length: 50, })
+    @Column({ type: 'varchar', length: 50, unique: true })
     documento_identificacion: string
 
     @Column({ type: 'varchar', length: 50 })
@@ -32,6 +32,6 @@ export class ClienteEntity extends BaseEntity {
     direccion: string
 
     @Column({ type: 'boolean', })
-    estado: boolean
+    activo: boolean
 };
 

@@ -8,10 +8,12 @@ const hello_world_router_1 = __importDefault(require("../modules/hello-world/hel
 const usuarios_router_1 = __importDefault(require("../modules/usuarios/usuarios.router"));
 const gyms_router_1 = __importDefault(require("../modules/gyms/gyms.router"));
 const cliente_router_1 = __importDefault(require("../modules/clientes/cliente.router"));
+const auth_router_1 = __importDefault(require("../modules/auth/auth.router"));
 const routes = (0, express_1.Router)();
 const base = "/api/v1";
 routes.use(`${base}/hello-world`, hello_world_router_1.default);
 routes.use(`${base}/usuarios`, usuarios_router_1.default); //TODO: PENDIENTE POR TERMINAR
+routes.use(`${base}/auth`, auth_router_1.default);
 routes.use(`${base}/gyms`, gyms_router_1.default);
 routes.use(`${base}/clientes`, cliente_router_1.default);
 exports.default = routes;

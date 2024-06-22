@@ -8,8 +8,9 @@ export const schemaCrearCliente = Joi.object({
     direccion: Joi.string().required(),
     telefono: Joi.string().required(),
     estado: Joi.boolean().required(),
-    correo: Joi.string().required(),
+    correo: Joi.string().required().email(),
     documento_identificacion: Joi.string().required(),
     genero: Joi.string().required()
 
-})
+});
+

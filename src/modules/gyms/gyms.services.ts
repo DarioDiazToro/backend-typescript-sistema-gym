@@ -26,7 +26,7 @@ export const crearGymService = async (datos: any) => {
     };
 };
 
-export const actualizarGymService = async (id: number, datos: any) => {
+export const actualizarGymServiceById = async (id: any, datos: any) => {
 
     const item = await GymEntity.findBy({ id });
     const gym = item[0];

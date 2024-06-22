@@ -5,27 +5,18 @@ import { ClienteEntity } from "../../models/cliente";
 export const crearClienteService = async (datos: any) => {
 
     const datosCliente = await ClienteEntity.create(datos);
-    const { documento_identificacion: documentoIT, correo } = datosCliente;
+    const { documento_identificacion: documentoIT, } = datosCliente;
     const clienteDB = await ClienteEntity.find()
 
 
 
     for (let i = 0; i < clienteDB.length; i++) {
         const documento = clienteDB[i].documento_identificacion;
-        const correoDB = clienteDB[i].correo;
 
         if (documento === documentoIT) {
             return {
-                code: 400,
+                code: 422,
                 msg: `el documento ${documentoIT} ya existe en la Base de datos debe ser unico === ${documento}`,
-                data: null
-            };
-
-        };
-        if (correo === correoDB) {
-            return {
-                code: 400,
-                msg: `el correo ${correo} ya existe en la Base de datos debe ser unico === ${correoDB}`,
                 data: null
             };
 
@@ -34,10 +25,14 @@ export const crearClienteService = async (datos: any) => {
     };
     const cliente = await ClienteEntity.save(datosCliente);
 
-    return cliente;
+    return {
+        msg: "crear ok",
+        data: cliente,
+        code: 200
+    };
 };
 
-export const actualizarClienteServiceById = async (id: number, datos: any) => {
+export const actualizarClienteServiceById = async (id: any, datos: any) => {
 
     const item = await ClienteEntity.findBy({ id });
 
@@ -63,10 +58,10 @@ export const actualizarClienteServiceById = async (id: number, datos: any) => {
 
 };
 
-export const obtenerClienteByIdService = async (id: number) => {
+export const obtenerClienteByIdService = async (id: any) => {
     const cliente = await ClienteEntity.findBy({ id });
 
-    if (!cliente) {
+    if (cliente.length === 0) {
         return {
             msg: `no existe en la BD id - ${id} `,
             code: 422,
@@ -82,8 +77,8 @@ export const obtenerClienteByIdService = async (id: number) => {
 
 
 export const obtenerClientesService = async () => {
-    const clientes = await ClienteEntity.findBy({ estado: true });
-    const totalClientes = await ClienteEntity.countBy({ estado: true });
+    const clientes = await ClienteEntity.findBy({ activo: true });
+    const totalClientes = await ClienteEntity.countBy({ activo: true });
 
     return {
         totalClientes,
@@ -105,7 +100,7 @@ export const deleteClienteByIdService = async (id: any) => {
         };
     };
 
-    await ClienteEntity.update({ id }, { estado: false });
+    await ClienteEntity.update({ id }, { activo: false });
     const clienteEliminado = await ClienteEntity.findOne({ where: { id } });
     return {
         msg: `Delete ok`,

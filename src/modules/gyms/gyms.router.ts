@@ -1,8 +1,9 @@
 
 import { Request, Response, Router } from "express";
-import { actualizarGym, crearGym, deleteGymById, obtenerGymById, obtenerGyms } from "./gyms.controller";
+import { actualizarGym, crearGym, eliminarGymById, obtenerGymById, obtenerGyms } from "./gyms.controller";
 import { schemaActualizarGym, schemaCrearGym } from "./gyms.schemas";
 import { joiValidateMiddleware } from "../../middlewares/Joi.middlewares";
+import { actualizarGymServiceById } from "./gyms.services";
 
 const router = Router();
 
@@ -15,13 +16,13 @@ router.post("/", [
 /**PUT */
 router.put("/:id", [
     joiValidateMiddleware(schemaActualizarGym)],
-    actualizarGym);
+    actualizarGymServiceById);
 
 /**GET */
 router.get("/:id", obtenerGymById);
 router.get("/", [], obtenerGyms);
 
 /**DELETE */
-router.delete("/:id", deleteGymById);
+router.delete("/:id", eliminarGymById);
 
 export default router;

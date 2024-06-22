@@ -1,7 +1,7 @@
 
 import { Router } from "express";
 import { joiValidateMiddleware } from "../../middlewares/Joi.middlewares";
-import { actualizarClienteById, crearCliente, deleteClienteById, obtenerClienteById, obtenerClientes } from "./cliente.controller";
+import { actualizarClienteById, crearCliente, eliminarClienteById, obtenerClienteById, obtenerClientes } from "./cliente.controller";
 import { schemaCrearCliente } from "./cliente.schemas";
 
 
@@ -24,6 +24,6 @@ router.get("/:id", [], obtenerClienteById);
 router.get("/", [], obtenerClientes);
 
 
-router.delete("/:id", [], deleteClienteById);
+router.delete("/:id", [], eliminarClienteById);
 
 export default router;

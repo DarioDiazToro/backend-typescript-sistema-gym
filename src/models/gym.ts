@@ -21,4 +21,7 @@ export class GymEntity extends BaseEntity {
 
     @Column({ type: 'boolean' })
     estado: boolean
+
+
+
 };
