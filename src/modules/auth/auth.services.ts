@@ -1,4 +1,5 @@
 
+import { generarJWT } from "../../helpers/generar-jwt";
 import { UsuariosEntity } from "../../models/usuario";
 import bcryptjs from "bcryptjs";
 
@@ -32,11 +33,16 @@ export const loginService = async (datos: any) => {
                 data: null
             };
         };
+
+        const token = await generarJWT({ id: usuario.id });
+
         return {
+            msg: "login ok",
             code: 200,
-            msg: "Login ok",
-            data: null
+            data: usuario,
+            token
         };
+
 
     } catch (error) {
         console.log(error);
