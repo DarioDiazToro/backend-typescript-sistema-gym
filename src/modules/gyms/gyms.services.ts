@@ -61,7 +61,7 @@ export const obtenerGymsService = async () => {
     };
 };
 
-export const obetenerGymByIdService = async (id: number) => {
+export const obtenerGymByIdService = async (id: any) => {
 
     const item = await GymEntity.findBy({ id });
     const gym = item[0];
@@ -79,7 +79,7 @@ export const obetenerGymByIdService = async (id: number) => {
     };
 };
 
-export const deleteGymByIdSerivice = async (id: number) => {
+export const deleteGymByIdService = async (id: any) => {
 
     const item = await GymEntity.findBy({ id });
     const gym = item[0];

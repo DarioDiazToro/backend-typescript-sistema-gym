@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { actualizarGymServiceById, crearGymService, deleteGymByIdSerivice, obetenerGymByIdService, obtenerGymsService } from "./gyms.services";
+import { actualizarGymServiceById, crearGymService, deleteGymByIdService, obtenerGymByIdService, obtenerGymsService } from "./gyms.services";
 import { respuesta } from "../../common/response.common";
 
 export const crearGym = async (req: Request, res: Response) => {
@@ -29,7 +29,7 @@ export const obtenerGymById = async (req: Request, res: Response) => {
     const { id } = req.params;
     const numberId = Number(id);
 
-    const answer = await obetenerGymByIdService(numberId);
+    const answer = await obtenerGymByIdService(numberId);
     return respuesta(res, answer.code, true, answer.msg, answer.data);
 };
 
@@ -37,8 +37,7 @@ export const eliminarGymById = async (req: Request, res: Response) => {
 
     const { id } = req.params;
 
-    const numberId = Number(id);
-    const answer = await deleteGymByIdSerivice(numberId);
+    const answer = await deleteGymByIdService(id);
 
     return respuesta(res, answer.code, true, answer.msg, answer.data);
 

@@ -106,7 +106,7 @@ export const deleteUsuarioByIdService = async (id: any) => {
     const usuario = item[0];
     if (!usuario) {
         return {
-            msg: `no existe en la BD id - ${id} `,
+            msg: `no existe usuario en la BD con id - ${id} `,
             code: 422,
             data: null
         };

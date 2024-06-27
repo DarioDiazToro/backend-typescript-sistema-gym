@@ -4,6 +4,7 @@ import routerUsuarios from "../modules/usuarios/usuarios.router"
 import routerGyms from "../modules/gyms/gyms.router";
 import routerClientes from "../modules/clientes/cliente.router";
 import routerAuth from "../modules/auth/auth.router";
+import routerCategoria from "../modules/categoria/categoria.router";
 
 const routes = Router();
 
@@ -16,6 +17,7 @@ routes.use(`${base}/auth`, routerAuth);
 
 routes.use(`${base}/gyms`, routerGyms);
 routes.use(`${base}/clientes`, routerClientes);
+routes.use(`${base}/categoria`, routerCategoria);
 
 
 export default routes;

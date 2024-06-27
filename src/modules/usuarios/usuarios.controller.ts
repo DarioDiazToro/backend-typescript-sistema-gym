@@ -41,6 +41,7 @@ export const eliminarUsuarioById = async (req: Request, res: Response) => {
     const { id } = req.params;
 
     const answer = await deleteUsuarioByIdService(id);
+    console.log(id);
     return respuesta(res, answer.code, true, answer.msg, answer.data);
 
 };
