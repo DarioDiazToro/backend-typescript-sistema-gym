@@ -3,8 +3,7 @@ import Joi from 'joi';
 
 export const schemaCrearUsuario = Joi.object({
     nombres: Joi.string().required(),
-    apellidoUno: Joi.string().required(),
-    apellidoDos: Joi.string().required(),
+    apellidos: Joi.string().required(),
     direccion: Joi.string().required(),
     telefono: Joi.string().required(),
     estado: Joi.boolean().required(),
@@ -17,8 +16,7 @@ export const schemaCrearUsuario = Joi.object({
 
 export const schemaActualizarUsuario = Joi.object({
     nombres: Joi.string().required(),
-    apellidoUno: Joi.string().required(),
-    apellidoDos: Joi.string().required(),
+    apellidos: Joi.string().required(),
     direccion: Joi.string().required(),
     telefono: Joi.string().required(),
     estado: Joi.boolean().required(),

@@ -11,7 +11,7 @@ export const loginService = async (datos: any) => {
         const usuario = await UsuariosEntity.findOne({ where: { correo: correo } });
         if (!usuario) {
             return {
-                code: 400,
+                code: 200,
                 msg: "contraseña / correo no son correctos - correo",
                 data: null
             };
@@ -25,7 +25,7 @@ export const loginService = async (datos: any) => {
             };
         };
 
-        const validarPassword = bcryptjs.compareSync(password, usuario.password);
+        const validarPassword = bcryptjs.compareSync(password, usuario.password!);
         if (!validarPassword) {
             return {
                 code: 400,

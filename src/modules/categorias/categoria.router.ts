@@ -2,8 +2,7 @@
 import { Request, Response, Router } from "express";
 import { schemaCrearCategoria } from "./categoria.schemas";
 import { joiValidateMiddleware } from "../../middlewares/Joi.middlewares";
-import { actualizarCategoria, crearCategoria, obtenerCategoriaById, obtenerCategorias } from "./categoria.controller";
-import { deleteCategoriaByIdService } from "./categoria.services";
+import { actualizarCategoriaById, crearCategoria, eliminarCategoriaById, obtenerCategoriaById, obtenerCategorias } from "./categoria.controller";
 
 const router = Router();
 
@@ -14,13 +13,13 @@ router.post("/", [
 ], crearCategoria);
 
 /**PUT */
-router.put("/:id", [joiValidateMiddleware(actualizarCategoria)],
-);
+router.put("/:id", [joiValidateMiddleware(schemaCrearCategoria)],
+    actualizarCategoriaById);
 
 /**GET */
 router.get("/:id", obtenerCategoriaById);
 router.get("/", [], obtenerCategorias);
 
 /**DELETE */
-router.delete("/:id", deleteCategoriaByIdService)
+router.delete("/:id", eliminarCategoriaById)
 export default router;

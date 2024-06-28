@@ -22,8 +22,8 @@ export class Server {
         this.app.use(misRutas);
     }
 
-    connectionBd() {
-        AppDataSource.initialize()
+    async connectionBd() {
+        await AppDataSource.initialize()
             .then(() => {
                 // here you can start to work with your database
             })

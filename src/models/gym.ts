@@ -5,22 +5,22 @@ import { BaseEntity, Column, Entity, PrimaryColumn, PrimaryGeneratedColumn } fro
 export class GymEntity extends BaseEntity {
 
     @PrimaryGeneratedColumn('increment')
-    id: number;
+    id?: number;
 
     @Column({ type: 'varchar', length: 50 })
-    nombre: string;
+    nombre?: string;
 
     @Column({ type: 'varchar', length: 50, })
-    codigo: string
+    codigo?: string
 
     @Column({ type: 'varchar', length: 50 })
-    direccion: string
+    direccion?: string
 
     @Column({ type: 'varchar', length: 50 })
-    telefono: string
+    telefono?: string
 
     @Column({ type: 'boolean' })
-    estado: boolean
+    estado?: boolean
 
 
 

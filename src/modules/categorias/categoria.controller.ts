@@ -8,7 +8,7 @@ export const crearCategoria = async (req: Request, res: Response) => {
 };
 
 
-export const actualizarCategoria = async (req: Request, res: Response) => {
+export const actualizarCategoriaById = async (req: Request, res: Response) => {
 
     const { id } = req.params;
 

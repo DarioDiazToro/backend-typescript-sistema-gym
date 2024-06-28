@@ -4,7 +4,7 @@ import routerUsuarios from "../modules/usuarios/usuarios.router"
 import routerGyms from "../modules/gyms/gyms.router";
 import routerClientes from "../modules/clientes/cliente.router";
 import routerAuth from "../modules/auth/auth.router";
-import routerCategoria from "../modules/categoria/categoria.router";
+import routerCategoria from "../modules/categorias/categoria.router";
 
 const routes = Router();
 

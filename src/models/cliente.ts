@@ -5,33 +5,30 @@ import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 export class ClienteEntity extends BaseEntity {
 
     @PrimaryGeneratedColumn('increment')
-    id: number;
+    id?: number;
 
     @Column({ type: 'varchar', length: 50 })
-    nombres: string;
+    nombres?: string;
 
     @Column({ type: 'varchar', length: 50, })
-    apellidoUno: string
-
-    @Column({ type: 'varchar', length: 50, })
-    apellidoDos: string
+    apellidos?: string
 
     @Column({ type: 'varchar', })
-    telefono: string
+    telefono?: string
 
     @Column({ type: 'varchar', length: 50, unique: true })
-    documento_identificacion: string
+    documento_identificacion?: string
 
     @Column({ type: 'varchar', length: 50 })
-    genero: string
+    genero?: string
 
     @Column({ type: 'varchar', length: 50 })
-    correo: string
+    correo?: string
 
     @Column({ type: 'varchar', length: 50 })
-    direccion: string
+    direccion?: string
 
     @Column({ type: 'boolean', })
-    activo: boolean
+    activo?: boolean
 };
 

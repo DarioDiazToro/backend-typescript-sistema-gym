@@ -37,6 +37,7 @@ export const crearUsuarioService = async (datos: any) => {
 
     const usuario = await UsuariosEntity.save(datosUsuario);
 
+
     return {
         msg: "crear ok",
         code: 200,

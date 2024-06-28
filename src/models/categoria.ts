@@ -5,14 +5,14 @@ import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 export class CategoriaEntity extends BaseEntity {
 
     @PrimaryGeneratedColumn('increment')
-    id: number;
+    id?: number;
 
     @Column({ type: "varchar", length: 50 })
-    nombre: string;
+    nombre?: string;
 
     @Column({ type: "varchar", length: 50 })
-    codigo: string;
+    codigo?: string;
 
     @Column({ type: "boolean" })
-    estado: boolean;
+    estado?: boolean;
 };

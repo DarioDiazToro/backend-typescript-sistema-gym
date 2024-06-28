@@ -9,11 +9,20 @@ export const crearCategoriaService = async (datos: any) => {
     const item = await CategoriaEntity.create(datos);
 
     for (let i = 0; i < categoriasDB.length; i++) {
-        const codigo = categoriasDB[i].codigo;
-        if (codigo === item.codigo) {
+        const codigos = categoriasDB[i].codigo;
+        const nombres = categoriasDB[i].nombre;
+        if (codigos === item.codigo) {
             return {
                 code: 400,
-                msg: `el codigo ${item.codigo} ya existe en la Base de datos === ${codigo}`,
+                msg: `el codigo ${item.codigo} ya existe en la Base de datos === ${codigos}`,
+                data: null
+            };
+        };
+
+        if (nombres === item.nombre) {
+            return {
+                code: 400,
+                msg: `el nombre ${item.nombre} ya existe en la Base de datos === ${nombres}`,
                 data: null
             };
         };
@@ -29,9 +38,9 @@ export const crearCategoriaService = async (datos: any) => {
 export const actualizarCategoriaServiceById = async (id: any, datos: any) => {
 
     const item = await CategoriaEntity.findBy({ id });
-    const gym = item[0];
+    const categoria = item[0];
 
-    if (!gym) {
+    if (!categoria) {
         return {
             msg: `no existe en la BD id- ${id} `,
             code: 422,
@@ -46,7 +55,7 @@ export const actualizarCategoriaServiceById = async (id: any, datos: any) => {
     return {
         msg: "actualizar ok",
         code: 200,
-        data: { gym, itemActualizado }
+        data: { categoria: categoria, itemActualizado }
     };
 
 };
@@ -83,6 +92,7 @@ export const deleteCategoriaByIdService = async (id: any) => {
 
     const item = await CategoriaEntity.findBy({ id });
     const categoria = item[0];
+    console.log(categoria);
     if (!categoria) {
         return {
             msg: `no existe en la BD id - ${id} `,

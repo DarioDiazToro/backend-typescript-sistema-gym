@@ -5,8 +5,8 @@ import { respuesta } from "../../common/response.common";
 
 
 export const crearUsuario = async (req: Request, res: Response) => {
-
-    const usuarioService = await crearUsuarioService(req.body);
+    const { ...datos } = req.body;
+    const usuarioService = await crearUsuarioService(datos);
 
     return respuesta(res, usuarioService.code, true, usuarioService.msg, usuarioService.data);
 
