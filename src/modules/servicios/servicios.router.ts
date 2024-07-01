@@ -1,10 +1,18 @@
 
 import { Router } from "express";
-import { hello } from "./servicios.controller";
+import { schemaCrearServicio } from "./servicios.schemas";
+import { joiValidateMiddleware } from "../../middlewares/Joi.middlewares";
+import { crearServicio } from "./servicios.controller";
+import { actualizarServicioServiceById } from "./servicios.services";
+
 
 const router = Router();
 
 
-router.get("/", [], hello);
+router.post("/", [
+    joiValidateMiddleware(schemaCrearServicio)
+], crearServicio);
+
+router.put("/documento", [], actualizarServicioServiceById);
 
 export default router;

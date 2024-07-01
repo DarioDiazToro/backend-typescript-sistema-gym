@@ -2,9 +2,10 @@
 import { Router } from "express";
 import { joiValidateMiddleware } from "../../middlewares/Joi.middlewares";
 
-import { actualizarUsuarioById, crearUsuario, eliminarUsuarioById, obtenerUsuarioById, obtenerUsuarios } from "./usuarios.controller";
-import { schemaActualizarUsuario, schemaCrearUsuario } from "./usuarios.schemas";
+import { actualizarPassword, actualizarUsuarioById, crearUsuario, eliminarUsuarioById, obtenerUsuarioById, obtenerUsuarios } from "./usuarios.controller";
+import { schemaActualizarUsuario, schemaCrearUsuario, schemaActualizarPasswordUsuario } from "./usuarios.schemas";
 import { validarJWT } from "../../middlewares/validar-jwt";
+
 
 
 const router = Router();
@@ -20,7 +21,7 @@ router.put("/:id", [
     joiValidateMiddleware(schemaActualizarUsuario)
 ], actualizarUsuarioById);
 
-
+router.put("/actualizar-password/:documento", [joiValidateMiddleware(schemaActualizarPasswordUsuario)], actualizarPassword);
 
 router.get("/:id", [], obtenerUsuarioById);
 router.get("/", [], obtenerUsuarios);

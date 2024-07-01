@@ -1,3 +1,4 @@
+import { IRespuestaFuncion, getRespuestaCommon } from "../../common/response.common";
 import { UsuariosEntity } from "../../models/usuario";
 import bcryptjs from "bcryptjs";
 
@@ -122,10 +123,29 @@ export const deleteUsuarioByIdService = async (id: any) => {
     };
 };
 
-//TODO: REVISAR
-// export const actualizarContraseñaUsuarioService = async (id: any) => {
 
-//     const usuario = await UsuariosEntity.findOneBy(id);
+export const actualizarPasswordUsuarioService = async (documento: string, password: string): Promise<IRespuestaFuncion> => {
 
-//     return usuario;
-// };
+    const [usuario] = await UsuariosEntity.findBy({ documento_identificacion: documento });
+    if (!usuario) {
+        return {
+            success: false,
+            code: 400,
+            data: null,
+            message: `El usuario con identificacion ${documento} no existe en la base de datos`
+        }
+    };
+
+    const salt = bcryptjs.genSaltSync();
+
+    const nuevaPassword = bcryptjs.hashSync(password, salt);
+
+    const actualizado = await UsuariosEntity.update({ documento_identificacion: documento }, { password: nuevaPassword })
+
+    if (!actualizado) {
+        return getRespuestaCommon(false, 422, "No se logro actualizar la contraseña");
+    };
+
+    return getRespuestaCommon(true, 200, "Contraseña actualizada");
+
+};

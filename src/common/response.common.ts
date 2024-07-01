@@ -9,4 +9,19 @@ export const respuesta = (res: Response, code: number, success: boolean, message
     });
 };
 
+export interface IRespuestaFuncion {
+    success: boolean,
+    code: number,
+    message: string,
+    data: any,
+};
 
+export const getRespuestaCommon = (success: boolean, code: number, message: string = "", data: any = null): IRespuestaFuncion => {
+
+    return {
+        success,
+        code,
+        message,
+        data
+    };
+};

@@ -9,11 +9,11 @@ export const crearGymService = async (datos: any) => {
     const item = await GymEntity.create(datos);
 
     for (let i = 0; i < gymsDB.length; i++) {
-        const codigo = gymsDB[i].codigo;
-        if (codigo === item.codigo) {
+        const codigos = gymsDB[i].codigo;
+        if (codigos === item.codigo) {
             return {
                 code: 400,
-                msg: `el codigo ${item.codigo} ya existe en la Base de datos === ${codigo}`,
+                msg: `el codigo ${item.codigo} ya existe en la Base de datos === ${codigos}`,
                 data: null
             };
         };

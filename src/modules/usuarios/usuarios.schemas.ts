@@ -25,4 +25,8 @@ export const schemaActualizarUsuario = Joi.object({
     documento_identificacion: Joi.string().required(),
     genero: Joi.string().required()
 
-})
+});
+
+export const schemaActualizarPasswordUsuario = Joi.object({
+    password: Joi.string().required(),
+});

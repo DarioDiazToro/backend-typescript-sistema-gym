@@ -1,6 +1,6 @@
 
 import { Request, Response, } from "express";
-import { actualizarUsuarioServiceById, crearUsuarioService, deleteUsuarioByIdService, obtenerUsuarioByIdService, obtenerUsuariosService } from "./usuarios.services";
+import { actualizarPasswordUsuarioService, actualizarUsuarioServiceById, crearUsuarioService, deleteUsuarioByIdService, obtenerUsuarioByIdService, obtenerUsuariosService } from "./usuarios.services";
 import { respuesta } from "../../common/response.common";
 
 
@@ -46,13 +46,12 @@ export const eliminarUsuarioById = async (req: Request, res: Response) => {
 
 };
 
-// TODO: REVISAR
-// export const actualizarContraseñaUsuario = async (req: Request, res: Response) => {
-//     const { documento } = req.params;
 
-//     const answer = await actualizarContraseñaUsuarioService(documento);
-//     res.status(200).json({
-//         rta: answer,
-//     });
-// };
+export const actualizarPassword = async (req: Request, res: Response) => {
+    const { documento } = req.params;
+    const { password } = req.body;
+
+    const answer = await actualizarPasswordUsuarioService(documento, password);
+    return respuesta(res, answer.code, answer.success, answer.message, answer.data);
+};
 
