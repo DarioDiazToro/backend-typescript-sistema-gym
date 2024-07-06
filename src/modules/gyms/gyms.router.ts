@@ -16,7 +16,7 @@ router.post("/", [
 /**PUT */
 router.put("/:id", [
     joiValidateMiddleware(schemaActualizarGym)],
-    actualizarGymServiceById);
+    actualizarGym);
 
 /**GET */
 router.get("/:id", obtenerGymById);

@@ -1,8 +1,8 @@
 
 import { Router } from "express";
-import { schemaCrearServicio } from "./servicios.schemas";
+import { schemaActualizarServicio, schemaCrearServicio } from "./servicios.schemas";
 import { joiValidateMiddleware } from "../../middlewares/Joi.middlewares";
-import { crearServicio } from "./servicios.controller";
+import { actualizarServicio, crearServicio, eliminarServicioById, obtenerServicioById, obtenerServicios } from "./servicios.controller";
 import { actualizarServicioServiceById } from "./servicios.services";
 
 
@@ -13,6 +13,11 @@ router.post("/", [
     joiValidateMiddleware(schemaCrearServicio)
 ], crearServicio);
 
-router.put("/documento", [], actualizarServicioServiceById);
+router.put("/:id", [joiValidateMiddleware(schemaActualizarServicio)], actualizarServicio);
 
+router.get("/:id", [], obtenerServicioById);
+router.get("/", [], obtenerServicios);
+
+
+router.delete("/:id", [], eliminarServicioById);
 export default router;

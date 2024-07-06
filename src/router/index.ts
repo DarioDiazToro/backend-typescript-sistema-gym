@@ -6,6 +6,8 @@ import routerClientes from "../modules/clientes/cliente.router";
 import routerAuth from "../modules/auth/auth.router";
 import routerServicio from "../modules/servicios/servicios.router";
 import routerCategoria from "../modules/categorias/categoria.router";
+import routerProveedor from "../modules/proveedores/proveedores.router";
+
 
 
 const routes = Router();
@@ -23,7 +25,8 @@ routes.use(`${base}/gyms`, routerGyms);
 routes.use(`${base}/clientes`, routerClientes);
 routes.use(`${base}/categoria`, routerCategoria);
 routes.use(`${base}/servicios`, routerServicio);
-// routes.use(`${base}/numeroDocumento`, routerServicio);
+routes.use(`${base}/proveedores`, routerProveedor);
+
 
 
 

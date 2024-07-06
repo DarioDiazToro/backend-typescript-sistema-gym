@@ -18,9 +18,9 @@ export const crearGymService = async (datos: any) => {
             };
         };
     };
-    GymEntity.save(item);
+    const newGym = await GymEntity.save(item);
     return {
-        data: item,
+        data: newGym,
         msg: "crear gym ok",
         code: 200,
     };
@@ -53,7 +53,7 @@ export const actualizarGymServiceById = async (id: any, datos: any) => {
 
 
 export const obtenerGymsService = async () => {
-    const itemGyms = await GymEntity.findBy({ estado: true });
+    const itemGyms = await GymEntity.findBy({});
     const countGyms = await GymEntity.countBy({ estado: true });
     return {
         total: countGyms,

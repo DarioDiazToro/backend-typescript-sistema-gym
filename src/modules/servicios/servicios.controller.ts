@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { respuesta } from "../../common/response.common";
-import { actualizarServicioServiceById, crearServicioService } from "./servicios.services";
+import { actualizarServicioServiceById, crearServicioService, deleteGymByIdService, obtenerServicioByIdService, obtenerServicosService } from "./servicios.services";
+import { obtenerGymByIdService } from "../gyms/gyms.services";
 
 export const crearServicio = async (req: Request, res: Response) => {
     const answer = await crearServicioService(req.body);
@@ -11,33 +12,34 @@ export const crearServicio = async (req: Request, res: Response) => {
 export const actualizarServicio = async (req: Request, res: Response) => {
 
     const { id } = req.params;
+    const data = req.body;
 
-    const answer = await actualizarServicioServiceById(Number(id));
-    // return respuesta(res, answer.code, true, answer.msg, answer.data);
+    const answer = await actualizarServicioServiceById(Number(id), data);
+    return respuesta(res, answer.code, answer.success, answer.message, answer.data);
 };
 
 
-// export const obtenerGyms = async (req: Request, res: Response) => {
+export const obtenerServicioById = async (req: Request, res: Response) => {
 
-//     const answer = await obtenerGymsService();
-//     return respuesta(res, 200, true, "obtener todos ok", answer);
-// };
+    const { id } = req.params;
 
-// export const obtenerGymById = async (req: Request, res: Response) => {
+    const answer = await obtenerServicioByIdService(Number(id));
+    return respuesta(res, answer.code, answer.success, answer.message, answer.data);
+};
 
-//     const { id } = req.params;
-//     const numberId = Number(id);
+export const obtenerServicios = async (req: Request, res: Response) => {
 
-//     const answer = await obtenerGymByIdService(numberId);
-//     return respuesta(res, answer.code, true, answer.msg, answer.data);
-// };
 
-// export const eliminarGymById = async (req: Request, res: Response) => {
+    const answer = await obtenerServicosService();
+    return respuesta(res, answer.code, answer.success, answer.message, answer.data);
+};
 
-//     const { id } = req.params;
+export const eliminarServicioById = async (req: Request, res: Response) => {
 
-//     const answer = await deleteGymByIdService(id);
+    const { id } = req.params;
 
-//     return respuesta(res, answer.code, true, answer.msg, answer.data);
+    const answer = await deleteGymByIdService(id);
 
-// };
+    return respuesta(res, answer.code, answer.success, answer.message, answer.data);
+
+};
