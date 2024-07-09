@@ -11,17 +11,22 @@ export class GymEntity extends BaseEntity {
     nombre?: string;
 
     @Column({ type: 'varchar', length: 50, })
-    codigo?: string
+    codigo?: string;
+
+    @Column({ type: "varchar" })
+    nit?: string;
+
+    @Column({ type: "varchar" })
+    logo?: string;
 
     @Column({ type: 'varchar', length: 50 })
-    direccion?: string
+    direccion?: string;
 
     @Column({ type: 'varchar', length: 50 })
-    telefono?: string
+    telefono?: string;
 
     @Column({ type: 'boolean' })
-    estado?: boolean
-
+    activo?: boolean;
 
 
 };

@@ -7,7 +7,7 @@ export const schemaCrearProveedor = Joi.object({
     id_categoria: Joi.string().required(),
     valor: Joi.number().required(),
     cantidad: Joi.number().required(),
-    estado: Joi.boolean().required(),
+    activo: Joi.boolean().required(),
 
 });
 
@@ -17,7 +17,7 @@ export const schemaActualizarProveedor = Joi.object({
     id_categoria: Joi.string().required(),
     valor: Joi.number().required(),
     cantidad: Joi.number().required(),
-    estado: Joi.boolean().required(),
+    activo: Joi.boolean().required(),
 });
 
 

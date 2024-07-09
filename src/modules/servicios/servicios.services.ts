@@ -46,8 +46,8 @@ export const actualizarServicioServiceById = async (id: number, datos: any): Pro
 
 
 export const obtenerServicosService = async () => {
-    const servicios = await ServicioEntity.findBy({ estado: true });
-    const totalServicios = await ServicioEntity.countBy({ estado: true });
+    const servicios = await ServicioEntity.findBy({ activo: true });
+    const totalServicios = await ServicioEntity.countBy({ activo: true });
 
 
     return getRespuestaCommon(true, 200, "obtener todos ok", servicios, { total: totalServicios });
@@ -78,7 +78,7 @@ export const deleteGymByIdService = async (id: any) => {
         return getRespuestaCommon(false, 422, `No existe un id ${id} en la base de datos`, null);
     };
 
-    await ServicioEntity.update({ id }, { estado: false });
+    await ServicioEntity.update({ id }, { activo: false });
     const servicioEliminado = await ServicioEntity.findOne({ where: { id } });
     return getRespuestaCommon(true, 200, "eliminacion ok", servicioEliminado);
 };

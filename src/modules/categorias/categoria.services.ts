@@ -62,8 +62,8 @@ export const actualizarCategoriaServiceById = async (id: any, datos: any) => {
 
 
 export const obtenerCategoriasService = async () => {
-    const itemCategorias = await CategoriaEntity.findBy({ estado: true });
-    const countCategorias = await CategoriaEntity.countBy({ estado: true });
+    const itemCategorias = await CategoriaEntity.findBy({ activo: true });
+    const countCategorias = await CategoriaEntity.countBy({ activo: true });
     return {
         total: countCategorias,
         itemCategorias,
@@ -101,7 +101,7 @@ export const deleteCategoriaByIdService = async (id: any) => {
         };
     };
 
-    await CategoriaEntity.update({ id }, { estado: false });
+    await CategoriaEntity.update({ id }, { activo: false });
     const categoriaEliminada = await CategoriaEntity.findOne({ where: { id } });
     return {
         msg: `Delete ok`,

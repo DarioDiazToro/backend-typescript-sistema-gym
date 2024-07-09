@@ -23,6 +23,6 @@ export class ProveedoresEntity extends BaseEntity {
     cantidad?: string
 
     @Column({ type: 'varchar', length: 50 })
-    estado?: string
+    activo?: string
 };
 

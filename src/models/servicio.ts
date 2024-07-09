@@ -24,7 +24,7 @@ export class ServicioEntity extends BaseEntity {
     valor?: number
 
     @Column({ type: 'boolean' })
-    estado?: boolean
+    activo?: boolean
 
 
 };

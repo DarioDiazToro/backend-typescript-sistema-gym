@@ -14,5 +14,5 @@ export class CategoriaEntity extends BaseEntity {
     codigo?: string;
 
     @Column({ type: "boolean" })
-    estado?: boolean;
+    activo?: boolean;
 };

@@ -10,10 +10,19 @@ export const crearGymService = async (datos: any) => {
 
     for (let i = 0; i < gymsDB.length; i++) {
         const codigos = gymsDB[i].codigo;
+        const nits = gymsDB[i].nit;
         if (codigos === item.codigo) {
             return {
                 code: 400,
                 msg: `el codigo ${item.codigo} ya existe en la Base de datos === ${codigos}`,
+                data: null
+            };
+        };
+
+        if (nits === item.nit) {
+            return {
+                code: 400,
+                msg: `el nit ${item.nit} ya existe en la Base de datos === ${nits}`,
                 data: null
             };
         };
@@ -28,7 +37,10 @@ export const crearGymService = async (datos: any) => {
 
 export const actualizarGymServiceById = async (id: any, datos: any) => {
 
+    const { codigo, nit } = datos;
+
     const item = await GymEntity.findBy({ id });
+    const gyms = await GymEntity.find();
     const gym = item[0];
 
     if (!gym) {
@@ -39,14 +51,35 @@ export const actualizarGymServiceById = async (id: any, datos: any) => {
         };
     };
 
+    for (let i = 0; i < gyms.length; i++) {
+        const codigosBD = gyms[i].codigo;
+        const nits = gyms[i].nit;
+
+        if (codigosBD === codigo) {
+            return {
+                msg: `el codigo - ${codigo}  ya exite en la base de datos`,
+                code: 422,
+                data: null
+            };
+        };
+
+        if (nits === nit) {
+            return {
+                msg: `el nit - ${nit}  ya exite en la base de datos`,
+                code: 422,
+                data: null
+            };
+        };
+    };
+
     await GymEntity.update({ id }, datos);
 
-    const itemActualizado = await GymEntity.findOne({ where: { id } });
+    const gymActualizado = await GymEntity.findOne({ where: { id } });
 
     return {
         msg: "actualizar ok",
         code: 200,
-        data: { gym, itemActualizado }
+        data: { itemActualizado: gymActualizado }
     };
 
 };
@@ -54,7 +87,7 @@ export const actualizarGymServiceById = async (id: any, datos: any) => {
 
 export const obtenerGymsService = async () => {
     const itemGyms = await GymEntity.findBy({});
-    const countGyms = await GymEntity.countBy({ estado: true });
+    const countGyms = await GymEntity.countBy({ activo: true });
     return {
         total: countGyms,
         itemGyms,
@@ -91,7 +124,7 @@ export const deleteGymByIdService = async (id: any) => {
         };
     };
 
-    await GymEntity.update({ id }, { estado: false });
+    await GymEntity.update({ id }, { activo: false });
     const gymDelete = await GymEntity.findOne({ where: { id } });
     return {
         msg: `Delete ok`,
