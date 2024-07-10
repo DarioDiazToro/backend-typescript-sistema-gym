@@ -19,9 +19,11 @@ export const actualizarGym = async (req: Request, res: Response) => {
 
 
 export const obtenerGyms = async (req: Request, res: Response) => {
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = parseInt(req.query.limit as string) || 10;
 
-    const answer = await obtenerGymsService();
-    return respuesta(res, 200, true, "obtener todos ok", answer);
+    const answer = await obtenerGymsService(page, limit);
+    return respuesta(res, answer.code, true, answer.message, answer.data);
 };
 
 export const obtenerGymById = async (req: Request, res: Response) => {

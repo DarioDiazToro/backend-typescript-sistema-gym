@@ -14,14 +14,16 @@ export interface IRespuestaFuncion {
     code: number,
     message: string,
     data: any,
+    [key: string]: any;
 };
 
-export const getRespuestaCommon = (success: boolean, code: number, message: string = "", data: any = null, p0?: { total: number; }): IRespuestaFuncion => {
+export const getRespuestaCommon = (success: boolean, code: number, message: string = "", data: any = null, additionalInfo: object = {}): IRespuestaFuncion => {
 
     return {
         success,
         code,
         message,
-        data
+        data,
+        ...additionalInfo
     };
 };

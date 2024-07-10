@@ -1,7 +1,7 @@
 
 import { Request, Response, } from "express";
 import { respuesta } from "../../common/response.common";
-import { crearProveedorService } from "./proveedores.services";
+import { actualizarProveedorServiceById, crearProveedorService, deleteProveedorByIdService, obtenerProveedorByIdService, obtenerProveedoresService } from "./proveedores.services";
 
 
 export const crearProveedor = async (req: Request, res: Response) => {
@@ -14,44 +14,40 @@ export const crearProveedor = async (req: Request, res: Response) => {
 
 
 
-// export const actualizarUsuarioById = async (req: Request, res: Response) => {
+export const actualizarProveedorById = async (req: Request, res: Response) => {
 
-//     const { id } = req.params;
-//     const { estado, password, ...data } = req.body
-
-
-//     const answer = await actualizarUsuarioServiceById(id, data);
-//     return respuesta(res, answer.code, true, answer.msg, answer.data);
-// };
-
-// export const obtenerUsuarioById = async (req: Request, res: Response) => {
-//     const { id } = req.params;
-//     const answer = await obtenerUsuarioByIdService(id);
-//     return respuesta(res, answer.code, true, answer.msg, answer.data);
-
-// };
-
-// export const obtenerUsuarios = async (req: Request, res: Response) => {
-//     const answer = await obtenerUsuariosService();
-//     return respuesta(res, 200, true, "obtener todos ok", answer);
-
-// };
-
-// export const eliminarUsuarioById = async (req: Request, res: Response) => {
-//     const { id } = req.params;
-
-//     const answer = await deleteUsuarioByIdService(id);
-//     console.log(id);
-//     return respuesta(res, answer.code, true, answer.msg, answer.data);
-
-// };
+    const { id } = req.params;
+    const { estado, password, ...data } = req.body
 
 
-// export const actualizarPassword = async (req: Request, res: Response) => {
-//     const { documento } = req.params;
-//     const { password } = req.body;
+    const answer = await actualizarProveedorServiceById(Number(id), data);
+    return respuesta(res, answer.code, answer.success, answer.message, answer.data);
+};
 
-//     const answer = await actualizarPasswordUsuarioService(documento, password);
-//     return respuesta(res, answer.code, answer.success, answer.message, answer.data);
-// };
+export const obtenerProveedores = async (req: Request, res: Response) => {
+
+    const { limit, page } = req.query;
+
+    //TODO: Revisar limit y page
+    const answer = await obtenerProveedoresService(Number(limit), Number(page));
+    return respuesta(res, answer.code, answer.success, answer.message, answer.data);
+
+};
+
+export const obtenerProveedorById = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const answer = await obtenerProveedorByIdService(Number(id));
+    return respuesta(res, answer.code, answer.success, answer.message, answer.data);
+
+};
+
+export const eliminarProveedorById = async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    const answer = await deleteProveedorByIdService(Number(id));
+    return respuesta(res, answer.code, answer.success, answer.message, answer.data);
+
+};
+
+
 

@@ -16,13 +16,13 @@ export class ProveedoresEntity extends BaseEntity {
     @Column({ type: 'varchar', })
     id_categoria?: string
 
-    @Column({ type: 'varchar', length: 50, unique: true })
-    valor?: string
+    @Column({ type: 'int', })
+    valor?: number
+
+    @Column({ type: 'int', })
+    cantidad?: number
 
     @Column({ type: 'varchar', length: 50 })
-    cantidad?: string
-
-    @Column({ type: 'varchar', length: 50 })
-    activo?: string
+    activo?: boolean
 };
 

@@ -1,5 +1,8 @@
 
+import { Any } from "typeorm";
 import { GymEntity } from "../../models/gym";
+import { getRespuestaCommon, IRespuestaFuncion } from "../../common/response.common";
+
 
 
 export const crearGymService = async (datos: any) => {
@@ -85,13 +88,33 @@ export const actualizarGymServiceById = async (id: any, datos: any) => {
 };
 
 
-export const obtenerGymsService = async () => {
-    const itemGyms = await GymEntity.findBy({});
-    const countGyms = await GymEntity.countBy({ activo: true });
-    return {
-        total: countGyms,
-        itemGyms,
+export const obtenerGymsService = async (page: number, limit: number): Promise<IRespuestaFuncion> => {
+
+
+    try {
+        const gyms = await GymEntity.find();
+        let gimnacios: any[] = [];
+
+        const [data, total] = await GymEntity.findAndCount({
+            skip: (page - 1) * limit,
+            take: limit,
+            where: { activo: true }
+        });
+
+        const totalPages = Math.ceil(total / limit);
+
+        for (let i = gyms.length - 1; i >= 0; i--) {
+            const elements = gyms[i];
+            gimnacios.push(elements);
+        };
+
+        return getRespuestaCommon(true, 200, "todos ok", { gyms: data, total, totalPages, currentPage: page })
+
+
+    } catch (error) {
+        return getRespuestaCommon(false, 422, "Error al obtener gyms", null, { error: error })
     };
+
 };
 
 export const obtenerGymByIdService = async (id: any) => {
@@ -108,7 +131,7 @@ export const obtenerGymByIdService = async (id: any) => {
     return {
         code: 200,
         msg: "bien",
-        data: item
+        data: gym
     };
 };
 

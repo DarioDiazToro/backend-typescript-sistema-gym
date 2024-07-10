@@ -128,12 +128,8 @@ export const actualizarPasswordUsuarioService = async (documento: string, passwo
 
     const [usuario] = await UsuariosEntity.findBy({ documento_identificacion: documento });
     if (!usuario) {
-        return {
-            success: false,
-            code: 400,
-            data: null,
-            message: `El usuario con identificacion ${documento} no existe en la base de datos`
-        }
+        return getRespuestaCommon(false, 422, `El usuario con documento ${documento} no existe en la base de datos`);
+
     };
 
     const salt = bcryptjs.genSaltSync();
