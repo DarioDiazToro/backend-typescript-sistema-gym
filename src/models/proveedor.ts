@@ -2,7 +2,7 @@
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity("proveedores")
-export class ProveedoresEntity extends BaseEntity {
+export class ProveedorEntity extends BaseEntity {
 
     @PrimaryGeneratedColumn('increment')
     id?: number;
@@ -22,7 +22,7 @@ export class ProveedoresEntity extends BaseEntity {
     @Column({ type: 'int', })
     cantidad?: number
 
-    @Column({ type: 'varchar', length: 50 })
+    @Column({ type: 'bool' })
     activo?: boolean
 };
 

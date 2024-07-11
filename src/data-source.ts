@@ -6,7 +6,7 @@ import { UsuariosEntity } from "./models/usuario";
 import { CategoriaEntity } from "./models/categoria";
 import { ClienteEntity } from "./models/cliente";
 import { ServicioEntity } from "./models/servicio";
-import { ProveedoresEntity } from "./models/proveedor";
+import { ProveedorEntity } from "./models/proveedor";
 
 export const AppDataSource = new DataSource({
     type: "mysql",
@@ -17,7 +17,7 @@ export const AppDataSource = new DataSource({
     database: "gym",
     synchronize: true,
     logging: false,
-    entities: [GymEntity, UsuariosEntity, CategoriaEntity, ClienteEntity, ServicioEntity, ProveedoresEntity],
+    entities: [GymEntity, UsuariosEntity, CategoriaEntity, ClienteEntity, ServicioEntity, ProveedorEntity],
     subscribers: [],
     migrations: [],
 })
