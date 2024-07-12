@@ -21,6 +21,8 @@ export class ProductoEntity extends BaseEntity {
     @Column({ type: "int" })
     valor_total!: number;
 
+    @Column({ type: "int" })
+    id_categoria!: number;
 
     @Column({ type: "int" })
     cantidad!: number;

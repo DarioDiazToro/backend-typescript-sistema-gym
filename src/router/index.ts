@@ -7,6 +7,8 @@ import routerAuth from "../modules/auth/auth.router";
 import routerServicio from "../modules/servicios/servicios.router";
 import routerCategoria from "../modules/categorias/categoria.router";
 import routerProveedor from "../modules/proveedores/proveedores.router";
+import routerProducto from "../modules/productos/productos.router";
+
 
 
 
@@ -26,6 +28,8 @@ routes.use(`${base}/clientes`, routerClientes);
 routes.use(`${base}/categoria`, routerCategoria);
 routes.use(`${base}/servicios`, routerServicio);
 routes.use(`${base}/proveedores`, routerProveedor);
+routes.use(`${base}/productos`, routerProducto);
+
 
 
 
