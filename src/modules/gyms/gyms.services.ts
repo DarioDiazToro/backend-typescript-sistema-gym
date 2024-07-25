@@ -1,41 +1,56 @@
 
-import { Any } from "typeorm";
+import { Any, Or } from "typeorm";
 import { GymEntity } from "../../models/gym";
 import { getRespuestaCommon, IRespuestaFuncion } from "../../common/response.common";
+import { subirImagen } from "../uploads/upload.service";
 
 
 
 export const crearGymService = async (datos: any) => {
 
+    let { logo, codigo, extension } = datos;
 
-    const gymsDB = await GymEntity.find();
+    let newGym: any;
+
+    const gymsDB = await GymEntity.find({
+        where: [
+            { codigo: datos.codigo },
+            { nit: datos.nit }
+        ]
+    });
+
+    // if (gymsDB.length > 0) {
+    //     return {
+    //         code: 400,
+    //         msg: `el codigo ${datos.codigo} ya existe en la Base de datos INGRESO EN EL 1`,
+    //         data: gymsDB.length
+    //     };
+    // }
+
+
     const item = await GymEntity.create(datos);
+    newGym = item;
 
-    for (let i = 0; i < gymsDB.length; i++) {
-        const codigos = gymsDB[i].codigo;
-        const nits = gymsDB[i].nit;
-        if (codigos === item.codigo) {
-            return {
-                code: 400,
-                msg: `el codigo ${item.codigo} ya existe en la Base de datos === ${codigos}`,
-                data: null
-            };
-        };
 
-        if (nits === item.nit) {
-            return {
-                code: 400,
-                msg: `el nit ${item.nit} ya existe en la Base de datos === ${nits}`,
-                data: null
-            };
-        };
-    };
-    const newGym = await GymEntity.save(item);
+    const { ok, ruta } = subirImagen(logo, codigo, extension);
+
+    if (!ok) {
+        return getRespuestaCommon(false, 422, "No fue posible subir el logo", null);
+    }
+
+
+
+    newGym.logo = ruta;
+    newGym = await GymEntity.save(item);
+
+
+
     return {
-        data: newGym,
         msg: "crear gym ok",
         code: 200,
-    };
+        data: newGym,
+
+    }
 };
 
 export const actualizarGymServiceById = async (id: any, datos: any) => {

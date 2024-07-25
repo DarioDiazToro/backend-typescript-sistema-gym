@@ -8,10 +8,15 @@ export const schemaCrearGym = Joi.object({
     direccion: Joi.string().required(),
     telefono: Joi.string().required(),
     activo: Joi.boolean().required(),
-    logo: Joi.string().required(),
     correo: Joi.string().email(),
-    nit: Joi.string().required()
-})
+    nit: Joi.string().required(),
+
+
+    logo: Joi.string().base64().required(),
+    informacion_adicional: Joi.string().allow(''),
+    extension: Joi.string().required(),
+
+});
 
 export const schemaActualizarGym = Joi.object({
     nombre: Joi.string().required(),
@@ -19,9 +24,14 @@ export const schemaActualizarGym = Joi.object({
     direccion: Joi.string().required(),
     telefono: Joi.string().required(),
     activo: Joi.boolean(),
-    logo: Joi.string(),
     correo: Joi.string().email(),
     nit: Joi.string().required(),
+
+    informacion_adicional: Joi.string().allow(''),
+    cambiar_logo: Joi.boolean().required(),
+    logo: Joi.when('cambiar_logo', { is: true, then: Joi.string().base64().required() }),
+    extension: Joi.when('cambiar_logo', { is: true, then: Joi.string().required() }),
+
 })
 
 

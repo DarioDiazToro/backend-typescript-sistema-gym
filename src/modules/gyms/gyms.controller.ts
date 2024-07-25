@@ -4,6 +4,7 @@ import { respuesta } from "../../common/response.common";
 
 export const crearGym = async (req: Request, res: Response) => {
     const answer = await crearGymService(req.body);
+
     return respuesta(res, answer.code, true, answer.msg, answer.data);
 };
 
