@@ -20,7 +20,7 @@ export const loginService = async (datos: any) => {
         if (!usuario.activo) {
             return {
                 code: 400,
-                msg: "Usuario / contraseña no son correctos - estado: false",
+                msg: "Usuario / contraseña no son correctos - activo: false",
                 data: null
             };
         };

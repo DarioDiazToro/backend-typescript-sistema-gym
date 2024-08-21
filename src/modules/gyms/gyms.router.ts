@@ -1,6 +1,6 @@
 
 import { Request, Response, Router } from "express";
-import { actualizarGym, crearGym, eliminarGymById, obtenerGymById, obtenerGyms } from "./gyms.controller";
+import { actualizarGymById, crearGym, eliminarGymById, obtenerGymById, obtenerGyms } from "./gyms.controller";
 import { schemaActualizarGym, schemaCrearGym } from "./gyms.schemas";
 import { joiValidateMiddleware } from "../../middlewares/Joi.middlewares";
 import { actualizarGymServiceById } from "./gyms.services";
@@ -16,7 +16,7 @@ router.post("/", [
 /**PUT */
 router.put("/:id", [
     joiValidateMiddleware(schemaActualizarGym)],
-    actualizarGym);
+    actualizarGymById);
 
 /**GET */
 router.get("/:id", obtenerGymById);

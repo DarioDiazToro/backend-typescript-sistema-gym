@@ -1,21 +1,27 @@
 import { Request, Response } from "express";
 import { actualizarGymServiceById, crearGymService, deleteGymByIdService, obtenerGymByIdService, obtenerGymsService } from "./gyms.services";
-import { respuesta } from "../../common/response.common";
+import { IRespuestaFuncion, respuesta } from "../../common/response.common";
 
 export const crearGym = async (req: Request, res: Response) => {
     const answer = await crearGymService(req.body);
 
-    return respuesta(res, answer.code, true, answer.msg, answer.data);
+    return respuesta(res, answer.code, true, answer.message, answer.data);
 };
 
 
-export const actualizarGym = async (req: Request, res: Response) => {
+export const actualizarGymById = async (req: Request, res: Response) => {
 
-    const { id } = req.params;
-    const idNumber = Number(id);
+    try {
 
-    const answer = await actualizarGymServiceById(idNumber, req.body);
-    return respuesta(res, answer.code, true, answer.msg, answer.data);
+        const { id } = req.params;
+        const idNumber = Number(id);
+        const answer = await actualizarGymServiceById(idNumber, req.body);
+
+        return respuesta(res, answer.code, true, answer.message, answer.data);
+
+    } catch (error: any) {
+        console.log("Error ActualizarGymController=====>", error.message);
+    }
 };
 
 

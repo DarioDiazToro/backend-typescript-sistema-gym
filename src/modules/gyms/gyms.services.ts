@@ -1,31 +1,32 @@
 
-import { Any, Or } from "typeorm";
+import path from "path";
 import { GymEntity } from "../../models/gym";
 import { getRespuestaCommon, IRespuestaFuncion } from "../../common/response.common";
-import { subirImagen } from "../uploads/upload.service";
+import { eliminarImagen, subirImagen } from "../uploads/upload.service";
 
 
 
-export const crearGymService = async (datos: any) => {
+export const crearGymService = async (datos: any): Promise<IRespuestaFuncion> => {
 
     let { logo, codigo, extension } = datos;
 
     let newGym: any;
 
-    const gymsDB = await GymEntity.find({
-        where: [
-            { codigo: datos.codigo },
-            { nit: datos.nit }
-        ]
-    });
+    const gymsCodigos = await GymEntity.findBy({ codigo: datos.codigo });
 
-    // if (gymsDB.length > 0) {
-    //     return {
-    //         code: 400,
-    //         msg: `el codigo ${datos.codigo} ya existe en la Base de datos INGRESO EN EL 1`,
-    //         data: gymsDB.length
-    //     };
-    // }
+    const gymsNits = await GymEntity.findBy({ nit: datos.nit });
+
+
+    if (gymsCodigos.length > 0) {
+        return getRespuestaCommon(false, 422, `El codigo ${datos.codigo} ya existe en la Base de datos`);
+    };
+
+    if (gymsNits.length > 0) {
+
+        return getRespuestaCommon(false, 422, `El nit ${datos.nit} ya existe en la Base de datos `);
+
+    }
+
 
 
     const item = await GymEntity.create(datos);
@@ -45,63 +46,73 @@ export const crearGymService = async (datos: any) => {
 
 
 
-    return {
-        msg: "crear gym ok",
-        code: 200,
-        data: newGym,
+    return getRespuestaCommon(true, 200, "Crear ok", newGym);
 
+};
+
+export const actualizarGymServiceById = async (id: any, datos: any): Promise<IRespuestaFuncion> => {
+
+    try {
+        const { logo, codigo } = datos;
+
+        const { cambia_logo, extension, ...data } = datos;
+
+        const [gym] = await GymEntity.findBy({ id });
+
+
+        if (!gym) {
+            console.warn(`No existe en la DB id - ${id}`);
+            return getRespuestaCommon(true, 422, `No existe en la DB id - ${id}`)
+        };
+
+
+
+        const empresas = await GymEntity.find();
+
+
+        for (let i = 0; i < empresas.length; i++) {
+            const nit = empresas[i].nit;
+            const idEmpresa = empresas[i].id;
+            console.log(gym.nit, " == ", nit);
+            console.log(gym.id, " == ", idEmpresa);
+
+            if (datos.nit === nit && gym.id != idEmpresa) {
+                return getRespuestaCommon(true, 422, `El nit ${datos.nit} ya existe en la Base de datos`);
+            };
+        };
+
+
+
+
+        if (cambia_logo) {
+            const pathImg = path.join(__dirname, `../../../${gym.logo}`);
+
+            // eliminamos logo anterior
+            eliminarImagen(pathImg);
+            // if (!eliminarImagen(pathImg)) {
+            //     return getRespuestaCommon(false, 422, 'no se logro eliminar logo')
+            // }
+
+            //subimos logo
+            let { ok, ruta } = subirImagen(logo, gym.codigo, extension);
+
+            if (!ok) {
+                return getRespuestaCommon(true, 422, "No fue posible subir logo", null);
+            };
+            data.logo = ruta;
+        };
+
+        await GymEntity.update({ id }, data);
+        const gymActualizado = await GymEntity.findBy({ id });
+
+        return getRespuestaCommon(true, 200, "Actualizar ok", gymActualizado);
+
+    } catch (error: any) {
+
+        console.error("Error ActualizarGymSerice=====>", error.message);
+        return getRespuestaCommon(false, 422, "No se logro actualizar", null);
     }
 };
-
-export const actualizarGymServiceById = async (id: any, datos: any) => {
-
-    const { codigo, nit } = datos;
-
-    const item = await GymEntity.findBy({ id });
-    const gyms = await GymEntity.find();
-    const gym = item[0];
-
-    if (!gym) {
-        return {
-            msg: `no existe en la BD id- ${id} `,
-            code: 422,
-            data: null
-        };
-    };
-
-    for (let i = 0; i < gyms.length; i++) {
-        const codigosBD = gyms[i].codigo;
-        const nits = gyms[i].nit;
-
-        if (codigosBD === codigo) {
-            return {
-                msg: `el codigo - ${codigo}  ya exite en la base de datos`,
-                code: 422,
-                data: null
-            };
-        };
-
-        if (nits === nit) {
-            return {
-                msg: `el nit - ${nit}  ya exite en la base de datos`,
-                code: 422,
-                data: null
-            };
-        };
-    };
-
-    await GymEntity.update({ id }, datos);
-
-    const gymActualizado = await GymEntity.findOne({ where: { id } });
-
-    return {
-        msg: "actualizar ok",
-        code: 200,
-        data: { itemActualizado: gymActualizado }
-    };
-
-};
-
 
 export const obtenerGymsService = async (page: number, limit: number): Promise<IRespuestaFuncion> => {
 

@@ -8,7 +8,6 @@ export const login = async (req: Request, res: Response) => {
 
     const answer = await loginService(req.body);
 
-    console.log("hola!");
     res.status(answer.code).json({
         msg: answer.msg,
         usuario: answer.data,

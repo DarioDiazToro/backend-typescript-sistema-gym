@@ -4,8 +4,6 @@ import fs from "fs";
 import { v4 as uuidv4 } from "uuid";
 
 
-
-
 export const subirImagen = (base64: any, codigo: string, extensionArchivo: string): { ok: boolean, ruta: string } => {
     try {
         const nombreArchivo = `${uuidv4()}.${extensionArchivo}`;
@@ -47,11 +45,12 @@ export const eliminarImagen = (ruta: string): boolean => {
     try {
 
         fs.unlinkSync(ruta)
-        return true
+        return true;
+
 
     } catch (error) {
 
         console.log("Error eliminarImagen====>", error)
         return false
     }
-}
+};

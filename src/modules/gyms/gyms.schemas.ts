@@ -28,9 +28,9 @@ export const schemaActualizarGym = Joi.object({
     nit: Joi.string().required(),
 
     informacion_adicional: Joi.string().allow(''),
-    cambiar_logo: Joi.boolean().required(),
-    logo: Joi.when('cambiar_logo', { is: true, then: Joi.string().base64().required() }),
-    extension: Joi.when('cambiar_logo', { is: true, then: Joi.string().required() }),
+    cambia_logo: Joi.boolean().required(),
+    logo: Joi.when('cambia_logo', { is: true, then: Joi.string().base64().required() }),
+    extension: Joi.when('cambia_logo', { is: true, then: Joi.string().required() }),
 
 })
 
